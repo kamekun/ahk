@@ -1,0 +1,60 @@
+;------------------------------
+; Simple AHK counter loop
+; Created by KaMekUN 14-06-2017
+;-------------------------------
+
+#singleinstance, force
+#MaxThreadsPerHotkey 2
+
+Counter = 0
+var_paused:= 0
+
+;GUI LAYOUT
+;---------------
+;-----------------------------
+
+Gui, -border
+Gui, +AlwaysOnTop,
+Gui, Color, Black
+Gui, Show, x1020 y5 w280 h80,FishBot
+
+;GUI Font
+;---------------
+;-----------------------------
+
+Gui, Font, clime
+    Gui, Add, Text, x10, Status: 
+    Gui, Add, Text, x10, Loops:
+
+;GUI Buttons
+;---------------
+;-----------------------------
+    Gui, Add, Button, x25 y50 w60 h20 glbStart, Star
+    Gui, Add, Button, x100 y50 w80 h20 glbStop, Stop/Resume
+    Gui, Add, Button, x195 y50 w60 h20 glbQuit, Quit
+return
+
+;GUI Labels
+;---------------
+;-----------------------------
+
+lbStart:
+    Suspend, off
+    loop,
+    {
+		if(!var_paused){
+			Counter++
+			Gui, Add, Text, x50 y25, %Counter%
+			sleep 100
+		} 
+    }
+    return
+
+lbStop:
+	Suspend, on
+	var_paused := !var_paused
+    return
+
+lbQuit:
+    ExitApp
+    return
